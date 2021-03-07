@@ -1,0 +1,59 @@
+
+
+The run_analysis.R script performs the data preparation and the required analysation and modification described by the course project’s instraction.
+
+   1. Loading required packages and dataset
+        Dataset downloaded and extracted to the folder "/Coursera/Data_science_Johns_Hopkins/Getting_and_Cleaning_Data/Week4/DataDir/"
+
+    2. Assign each data to variables
+    
+        features <- features.txt (561 rows, 2 columns)
+            The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ.
+        act_labels <- activity_labels.txt (6 rows, 2 columns)
+            List of activities performed when the corresponding measurements were taken and its codes (labels)
+            
+        subject_test <- /test/subject_test.txt (2947 rows, 1 column)
+            Test data of 9/30 volunteer test subjects
+        X_test <- /test/X_test.txt (2947 rows, 561 columns)
+            Test data of recorded features 
+        y_test <- /test/y_test.txt (2947 rows, 1 columns)
+            Test data of activities’code labels
+            
+        subject_train <- /train/subject_train.txt (7352 rows, 1 column)
+            Train data of 21/30 volunteer subjects
+        X_train <- /train/X_train.txt (7352 rows, 561 columns)
+            Train data of recorded features 
+        y_train <- /train/y_train.txt (7352 rows, 1 columns)
+            Train data of activities’code labels
+
+    2. Merges the training and the test sets to create one data set
+        
+        X_merge (10299 rows, 561 columns):  merged X_train and X_test using rbind() function
+        y_merge (10299 rows, 1 column): merged  y_train and y_test using rbind() function
+        Subject_merge (10299 rows, 1 column):  merged subject_train and subject_test using rbind() function
+        Data_merged (10299 rows, 563 column):  merged Subject, Y and X using cbind() function
+
+    3. Extracts only the measurements on the mean and standard deviation for each measurement
+        
+        Data_tidy (10299 rows, 88 columns):subsetted Merged_Data, selecting only columns: subject, code and the measurements on the mean and standard deviation (std) for each measurement
+
+    4. Uses descriptive activity names to name the activities in the data set
+        
+        Entire numbers in code column of the Data_tidy replaced with corresponding activity taken from second column of the activities variable
+
+    5. Appropriately labels the data set with descriptive variable names
+      
+        code column in Data_tidy renamed into respective activities
+           Acc is replaced by Accelerometer
+           Gyro is replaced by Gyroscope
+           BodyBody is replaced by Body
+           Mag is replaced by Magnitude
+           All start with character f in column’s name replaced by Frequency
+           All start with character t in column’s name replaced by Time
+
+    6. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject
+        
+        Tidy_DataSet (180 rows, 88 columns) is the summarized Data_tidy ( groupped by subject and activity, taking the means of each variable).
+        
+        Export Tidy_DataSet into Tidy_DataSet.txt 
+
